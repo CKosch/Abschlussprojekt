@@ -1,0 +1,27 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - staging
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.x'
+
+    - name: Install and Upgrade pip
+      run: python -m pip install --upgrade pip
+
+    - name: Install Python dependencies
+      run: pip install -r requirements.txt
+
+    # Weitere Schritte wie das Ausführen der Tests
