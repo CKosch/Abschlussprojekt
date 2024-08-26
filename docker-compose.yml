@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  db:
+    image: mongo:4.4
+    container_name: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
+  backend:
+    build: ./backend-server
+    container_name: backend
+    ports:
+      - "5000:5000"
+    environment:
+      - mongodb+srv://cornelkoschat:UIN6MO7lovyxUXBO@abschlussprojekt2024.izzkh.mongodb.net/?retryWrites=true&w=majority&appName=Abschlussprojekt2024
+    depends_on:
+      - db
+
+  frontend:
+    build: ./website
+    container_name: frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+
+volumes:
+  mongo-data:
