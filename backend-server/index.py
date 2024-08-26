@@ -17,6 +17,8 @@ CORS(app)
 # Database connection
 connection = connect(db='your_db_name', host=os.getenv("MONGO_URL"))
 
+print(connection)
+
 # Register routes
 register_routes(app)
 
