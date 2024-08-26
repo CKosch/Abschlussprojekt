@@ -14,7 +14,7 @@ RUN npm i
 COPY . .
 
 # Exponiere den Port
-EXPOSE 8080
+EXPOSE 3000
 
 # Starte den Server
 CMD ["npm", "start"]
