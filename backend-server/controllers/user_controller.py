@@ -12,15 +12,21 @@ def login():
         username = data.get('username')
         password = data.get('password')
         
-        user = User.objects(username=username).first()
-        if not user or not check_password_hash(user.password, password):
-            return jsonify({"msg": "Incorrect Username or Password", "status": False}), 400
-        
-        user.password = None  # Remove password from response for security
-        # Transform the JSON to valid frontend format
-        transformed_json = transform_json(user.to_json())
+        print("try login...")
+        try:
+            user = User.objects(username=username).first()
+            print("got user db")
+            if not user or not check_password_hash(user.password, password):
+                return jsonify({"msg": "Incorrect Username or Password", "status": False}), 400
+            
+            user.password = None  # Remove password from response for security
+            # Transform the JSON to valid frontend format
+            transformed_json = transform_json(user.to_json())
 
-        return jsonify({"status": True, "user": transformed_json}), 200
+            return jsonify({"status": True, "user": transformed_json}), 200
+        except Exception as e:
+            return jsonify({"msg": str(ex)}), 500
+        
     except Exception as ex:
         return jsonify({"msg": str(ex)}), 500
 
